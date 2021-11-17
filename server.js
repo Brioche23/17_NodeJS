@@ -20,4 +20,12 @@ io.on("connection", newConnection);
 
 function newConnection(newSocket) {
   console.log(newSocket.id);
+
+  newSocket.on("mouse", mouseMessage);
+
+  function mouseMessage(message) {
+    console.log("message:", message);
+    //  Breadcasting the meassage to all the other clients
+    newSocket.broadcast.emit("mouseBroadcast", message);
+  }
 }
